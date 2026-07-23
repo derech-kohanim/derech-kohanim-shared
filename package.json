@@ -1,0 +1,20 @@
+{
+  "name": "@dk/shared",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Shared API contract and design tokens for Derech Kohanim",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "tokens": "tsx src/design/generate.ts",
+    "typecheck": "tsc --noEmit -p tsconfig.json"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.2"
+  }
+}
