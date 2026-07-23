@@ -10,6 +10,8 @@ export interface UserPreferences {
   theme: ThemePreference;
   stringency: Stringency;
   trafficAware: boolean;
+  /** Avoid toll roads by default. Synced across the user's devices. */
+  avoidTolls: boolean;
   voiceEnabled: boolean;
   /** Voice pack identifier, e.g. "he-default". */
   voiceId: string;
