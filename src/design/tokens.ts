@@ -48,6 +48,8 @@ export interface ThemeColors {
   zoneTaharat: string;
   /** machmirim - disputed area, the stricter hold it forbidden (יש מחמירין). Orange. */
   zoneMachmirim: string;
+  /** Danger zone (Oslo Area A) - a separate security axis, not halachic. Violet. */
+  zoneDanger: string;
   /** Route drawn without avoidance, debug only. */
   routeNaive: string;
   /** Focus ring. */
@@ -77,6 +79,7 @@ const light: ThemeColors = {
   zoneBasic: '330 78% 56%',
   zoneTaharat: '24 46% 40%',
   zoneMachmirim: '30 92% 52%',
+  zoneDanger: '272 60% 52%',
   routeNaive: '218 12% 55%',
   focus: '204 88% 44%',
 };
@@ -104,6 +107,7 @@ const dark: ThemeColors = {
   zoneBasic: '330 80% 64%',
   zoneTaharat: '24 48% 52%',
   zoneMachmirim: '30 92% 60%',
+  zoneDanger: '272 66% 64%',
   routeNaive: '218 10% 58%',
   focus: '202 90% 58%',
 };

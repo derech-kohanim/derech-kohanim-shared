@@ -11,9 +11,16 @@ export type RoutingEngine = 'here' | 'google' | 'graphhopper' | 'hybrid' | 'mock
 
 export interface ZoneProperties {
   id: number;
+  /** Short Hebrew title of the reason, e.g. "תחת הכביש נמצאו קברים". */
   name: string;
   nameHe: string;
   stringency: Stringency;
+  /** Locality, e.g. "טבריה". */
+  city: string | null;
+  /** Street, when the reason is street-specific. */
+  street: string | null;
+  /** The full halachic explanation shown to the user. */
+  description: string | null;
 }
 
 export interface ZoneFeature {
@@ -29,6 +36,29 @@ export interface ZoneCollection {
   version: number;
 }
 
+/**
+ * Danger zones (Oslo "Area A" etc.) - a SEPARATE axis from halachic stringency. Avoided via
+ * `avoidDangerZones`, on by default, independent of the stringency layers.
+ */
+export interface DangerZoneProperties {
+  id: number;
+  name: string;
+  city: string | null;
+  description: string | null;
+}
+
+export interface DangerZoneFeature {
+  type: 'Feature';
+  properties: DangerZoneProperties;
+  geometry: GeoJsonPolygon;
+}
+
+export interface DangerZoneCollection {
+  type: 'FeatureCollection';
+  features: DangerZoneFeature[];
+  version: number;
+}
+
 /** Synthetic manoeuvres the server injects around forbidden zones. */
 export type ZoneManeuverType =
   | 'zone_enter'
@@ -40,6 +70,11 @@ export interface ManeuverZone {
   name: string;
   nameHe: string;
   stringency: Stringency;
+  /** The reason/explanation for this zone, surfaced in the alert. */
+  description: string | null;
+  city: string | null;
+  /** True when this is a danger zone (Area A) rather than a halachic stringency zone. */
+  danger?: boolean;
 }
 
 /**
@@ -72,6 +107,8 @@ export interface RouteRequest {
   engine?: RoutingEngine;
   /** Avoid toll roads. Passed through to the provider (avoidTolls). */
   avoidTolls?: boolean;
+  /** Also avoid danger zones (Area A). Defaults to true on the server when omitted. */
+  avoidDangerZones?: boolean;
   /**
    * Also return the plain provider route WITHOUT zone avoidance, for comparison. The server
    * only fills `RoutePlan.unavoidedRoute` when avoidance actually changed the route.

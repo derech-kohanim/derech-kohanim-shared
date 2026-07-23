@@ -12,6 +12,8 @@ export interface UserPreferences {
   trafficAware: boolean;
   /** Avoid toll roads by default. Synced across the user's devices. */
   avoidTolls: boolean;
+  /** Avoid danger zones (Area A) by default. On unless the user turns it off. */
+  avoidDangerZones: boolean;
   voiceEnabled: boolean;
   /** Voice pack identifier, e.g. "he-default". */
   voiceId: string;
