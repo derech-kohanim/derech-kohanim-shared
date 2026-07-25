@@ -193,6 +193,27 @@ export interface NavigationProgressRequest {
   timestamp: string;
 }
 
+/** How a driver rates a trip when it ends. */
+export type NavFeedbackRating = 'good' | 'bad';
+
+/**
+ * End-of-trip feedback. `text` is the optional free-text description a driver adds when the
+ * rating is 'bad' (what went wrong); it is omitted on a 'good' rating.
+ */
+export interface NavFeedbackRequest {
+  routeId: string;
+  rating: NavFeedbackRating;
+  text?: string;
+}
+
+export interface NavFeedback {
+  id: string;
+  routeId: string;
+  rating: NavFeedbackRating;
+  text: string | null;
+  createdAt: string;
+}
+
 export interface NavigationProgressResponse {
   status: NavigationStatus;
   /** Index of the manoeuvre the driver is heading towards. */
