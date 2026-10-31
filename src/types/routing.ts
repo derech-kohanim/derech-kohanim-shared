@@ -78,6 +78,48 @@ export interface ManeuverZone {
 }
 
 /**
+ * What a lane's road markings allow, from the OSM `turn:lanes` vocabulary. `none` is a lane
+ * with no marking (usually "through").
+ */
+export type LaneIndication =
+  | 'left'
+  | 'slight_left'
+  | 'sharp_left'
+  | 'through'
+  | 'right'
+  | 'slight_right'
+  | 'sharp_right'
+  | 'reverse'
+  | 'merge_to_left'
+  | 'merge_to_right'
+  | 'none';
+
+/** One lane at the approach to a manoeuvre. */
+export interface Lane {
+  indications: LaneIndication[];
+  /** True when this lane can be used to perform the manoeuvre. */
+  valid: boolean;
+}
+
+/**
+ * A stretch of the route with one speed limit. Segments cover the geometry contiguously, in
+ * order, by vertex index (inclusive `fromIndex`, exclusive `toIndex`, like a path detail).
+ */
+export interface SpeedLimitSegment {
+  fromIndex: number;
+  toIndex: number;
+  /** Limit in km/h, or null when nothing is known for this stretch. */
+  kmh: number | null;
+  /**
+   * Where the number comes from: a mapped sign, the country's legal default for the road
+   * type, or the built-up-area default (50 km/h in Israel) when only the area is known.
+   */
+  source: 'sign' | 'estimated' | 'urban_default';
+  /** True when the stretch lies in a built-up area. */
+  urban?: boolean;
+}
+
+/**
  * One step. `voiceKeys` is the ordered list of audio clip ids needed to speak it, so the
  * client can preload exactly what this route requires before departure.
  */
@@ -93,6 +135,15 @@ export interface Maneuver {
   /** Index into the route geometry where this step begins. */
   geometryIndex: number;
   street: string | null;
+  /** Road reference number of the road this step continues on, e.g. "1" or "443". */
+  roadRef?: string | null;
+  /** Roundabout exit to take, 1-based. Only on roundabout manoeuvres. */
+  exitNumber?: number;
+  /**
+   * Lanes at the approach to this manoeuvre, left to right in the driving direction. Absent
+   * when the map has no lane data for that approach.
+   */
+  lanes?: Lane[];
   zone?: ManeuverZone;
   voiceKeys: string[];
 }
@@ -151,6 +202,11 @@ export interface RouteResult {
   detourRatio?: number;
   /** Every audio clip this route will need, deduplicated. */
   requiredVoiceKeys: string[];
+  /**
+   * Speed limits along the geometry. Absent when the engine that produced the shape has no
+   * speed data (only the self-hosted GraphHopper provides it).
+   */
+  speedLimits?: SpeedLimitSegment[];
   debug?: {
     naiveGeometry?: GeoJsonLineString;
     attempts?: string[];

@@ -10,7 +10,11 @@ export type RouteEventType =
   | 'police'
   | 'accident'
   | 'hazard'
-  | 'closure';
+  | 'closure'
+  /** Fixed enforcement camera, from OpenStreetMap. */
+  | 'speed_camera'
+  /** Level crossing with a railway, from OpenStreetMap. */
+  | 'rail_crossing';
 
 export type TrafficLevel = 'free' | 'moderate' | 'heavy';
 
@@ -25,6 +29,10 @@ export interface RouteEvent {
   labelHe?: string;
   /** True when a driver raised this report rather than it being seeded. */
   reportedByUser?: boolean;
+  /** Enforced limit in km/h, for a speed camera when the map records it. */
+  maxSpeedKmh?: number;
+  /** True for a level crossing guarded by barriers or gates. */
+  guarded?: boolean;
   createdAt?: string;
 }
 

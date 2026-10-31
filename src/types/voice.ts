@@ -31,6 +31,24 @@ export interface VoicePackManifest {
   updatedAt: string;
 }
 
+/**
+ * The selectable voices. Hebrew instructions are gendered (פנה / פני), so the voice id decides
+ * both the synthesized voice and the grammatical form of every clip's text. `he-default` is
+ * kept as an alias of `he-male` for preferences saved before the choice existed.
+ */
+export const VOICE_IDS = ['he-male', 'he-female', 'en-default'] as const;
+export type VoiceId = (typeof VOICE_IDS)[number] | 'he-default';
+
+/**
+ * Clip keys added for the alert and status announcements. Listed so both clients reference
+ * the same strings:
+ * - `alert.speed_camera`, `alert.rail_crossing`, `alert.speeding`
+ * - `misc.gps_lost`, `misc.gps_recovered`, `misc.back_on_route`, `misc.return_to_route`
+ * - `exit.1` .. `exit.8` - the roundabout exit ordinal ("ביציאה השלישית"), spoken after
+ *   `action.roundabout_enter`
+ */
+export const ROUNDABOUT_EXIT_KEYS_MAX = 8;
+
 /** Announced distances are a closed ladder, so the clip library stays small. */
 export const DISTANCE_LADDER_METERS = [
   2000, 1000, 800, 500, 300, 200, 100, 50, 0,
