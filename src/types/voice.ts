@@ -32,8 +32,8 @@ export interface VoicePackManifest {
 }
 
 /**
- * The selectable voices. Hebrew instructions are gendered (פנה / פני), so the voice id decides
- * both the synthesized voice and the grammatical form of every clip's text. `he-default` is
+ * The selectable voices. The voice id picks the speaker (a male or a female voice); the wording
+ * is the same in both Hebrew packs and addresses the driver in the masculine. `he-default` is
  * kept as an alias of `he-male` for preferences saved before the choice existed.
  */
 export const VOICE_IDS = ['he-male', 'he-female', 'en-default'] as const;
