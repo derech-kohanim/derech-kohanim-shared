@@ -5,4 +5,5 @@ export * from './types/places';
 export * from './types/routing';
 export * from './types/events';
 export * from './types/voice';
+export * from './types/support';
 export * from './design/tokens';
