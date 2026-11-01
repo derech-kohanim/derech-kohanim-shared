@@ -29,8 +29,12 @@ export interface SupportReportRequest {
 }
 
 export interface SupportReportResponse {
-  /** The issue number, which the user can quote if they write again. */
-  reference: number;
+  id: string;
+  /**
+   * The issue number, which the user can quote if they write again. Null when the report was
+   * kept but no issue was filed (GitHub not configured or unreachable).
+   */
+  reference: number | null;
   /** True when the report was added to an open issue about the same zone. */
   merged: boolean;
 }
