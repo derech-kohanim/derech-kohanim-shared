@@ -16,24 +16,37 @@ export interface ThemeColors {
   surface: string;
   /** Secondary surface for grouping without a border. */
   surfaceMuted: string;
+  /** Pale tinted band: a title strip, a notice bar, the selected row of a list. */
+  band: string;
   /** Surface that sits on top of the map. */
   surfaceOverlay: string;
+  /** Hairline border of cards and rows. Civic separates with lines, not shadows. */
   border: string;
+  /** Border of controls (outline buttons, inputs, unchecked switches). 3:1 on surface. */
+  borderStrong: string;
+  /** Headings and big numbers. */
   text: string;
+  /** Running text. */
+  textBody: string;
+  /** Secondary text. Slate blue, never plain grey. */
   textMuted: string;
   /** Brand colour. Used for the primary action and the clean route line. */
   primary: string;
   primaryHover: string;
   primaryContrast: string;
+  /** Background of a blue icon chip, a selected chip, a progress track. */
+  primarySoft: string;
   /** Warm secondary, used sparingly for highlights and the live pulse. */
   accent: string;
   accentContrast: string;
   /** Route is verified clean. */
   success: string;
   successContrast: string;
+  successSoft: string;
   /** Route could not be verified, or a forbidden zone. */
   danger: string;
   dangerContrast: string;
+  dangerSoft: string;
   /** Approaching a zone, or a costly detour. */
   warning: string;
   warningContrast: string;
@@ -56,23 +69,31 @@ export interface ThemeColors {
   focus: string;
 }
 
+// Tickta Civic palette (royal blue action colour, slate secondary text, hairlines). The zone
+// colours are not part of Civic and keep their meaning.
 const light: ThemeColors = {
-  background: '210 30% 97%',
+  background: '0 0% 100%',
   surface: '0 0% 100%',
-  surfaceMuted: '210 28% 94%',
+  surfaceMuted: '223 78% 98%',
+  band: '223 78% 98%',
   surfaceOverlay: '0 0% 100%',
-  border: '213 22% 88%',
-  text: '222 28% 13%',
-  textMuted: '216 14% 44%',
-  primary: '204 88% 44%',
-  primaryHover: '204 88% 38%',
+  border: '219 33% 92%',
+  borderStrong: '215 27% 55%',
+  text: '217 34% 12%',
+  textBody: '219 20% 17%',
+  textMuted: '218 34% 46%',
+  primary: '222 69% 52%',
+  primaryHover: '222 63% 40%',
   primaryContrast: '0 0% 100%',
-  accent: '28 94% 55%',
-  accentContrast: '24 60% 14%',
-  success: '156 58% 36%',
+  primarySoft: '221 90% 96%',
+  accent: '290 86% 35%',
+  accentContrast: '0 0% 100%',
+  success: '137 71% 22%',
   successContrast: '0 0% 100%',
-  danger: '356 72% 51%',
+  successSoft: '120 35% 93%',
+  danger: '4 76% 40%',
   dangerContrast: '0 0% 100%',
+  dangerSoft: '6 83% 95%',
   warning: '38 94% 50%',
   warningContrast: '30 60% 14%',
   zone: '356 72% 51%',
@@ -81,26 +102,32 @@ const light: ThemeColors = {
   zoneMachmirim: '30 92% 52%',
   zoneDanger: '272 60% 52%',
   routeNaive: '218 12% 55%',
-  focus: '204 88% 44%',
+  focus: '222 69% 52%',
 };
 
 const dark: ThemeColors = {
-  background: '222 30% 8%',
-  surface: '222 24% 12%',
-  surfaceMuted: '222 20% 17%',
-  surfaceOverlay: '222 24% 14%',
-  border: '220 16% 24%',
-  text: '210 30% 96%',
-  textMuted: '215 15% 66%',
-  primary: '202 90% 58%',
-  primaryHover: '202 90% 66%',
-  primaryContrast: '222 40% 10%',
-  accent: '30 96% 62%',
-  accentContrast: '24 60% 12%',
-  success: '156 52% 48%',
-  successContrast: '222 40% 10%',
-  danger: '356 76% 62%',
-  dangerContrast: '222 40% 10%',
+  background: '219 38% 9%',
+  surface: '219 38% 15%',
+  surfaceMuted: '218 37% 12%',
+  band: '218 37% 12%',
+  surfaceOverlay: '219 38% 15%',
+  border: '220 32% 22%',
+  borderStrong: '217 25% 53%',
+  text: '218 48% 95%',
+  textBody: '218 29% 87%',
+  textMuted: '218 41% 73%',
+  primary: '222 83% 69%',
+  primaryHover: '222 83% 79%',
+  primaryContrast: '219 38% 9%',
+  primarySoft: '221 47% 20%',
+  accent: '290 62% 72%',
+  accentContrast: '219 38% 9%',
+  success: '135 49% 66%',
+  successContrast: '219 38% 9%',
+  successSoft: '138 39% 14%',
+  danger: '4 92% 69%',
+  dangerContrast: '219 38% 9%',
+  dangerSoft: '3 51% 15%',
   warning: '40 94% 60%',
   warningContrast: '30 60% 12%',
   zone: '356 76% 60%',
@@ -109,16 +136,16 @@ const dark: ThemeColors = {
   zoneMachmirim: '30 92% 60%',
   zoneDanger: '272 66% 64%',
   routeNaive: '218 10% 58%',
-  focus: '202 90% 58%',
+  focus: '222 83% 69%',
 };
 
-/** Rounded, but stopping well short of pill shaped. */
+/** Civic radii: inputs 10, notice bars and tables 12, cards 16. Buttons and chips are pills. */
 const radius = {
   xs: 6,
   sm: 10,
-  md: 14,
-  lg: 20,
-  xl: 28,
+  md: 12,
+  lg: 16,
+  xl: 20,
   full: 999,
 } as const;
 
@@ -143,17 +170,17 @@ const space = {
  */
 const typography = {
   fontFamily: {
-    ui: "'Rubik', 'Segoe UI', 'Noto Sans Hebrew', system-ui, -apple-system, sans-serif",
-    nav: "'Rubik', 'Segoe UI', 'Noto Sans Hebrew', system-ui, sans-serif",
+    ui: "'Noto Sans Hebrew', 'Noto Sans', 'Segoe UI', Arial, system-ui, sans-serif",
+    nav: "'Noto Sans Hebrew', 'Noto Sans', 'Segoe UI', Arial, system-ui, sans-serif",
   },
   size: {
     caption: 12,
-    label: 13,
-    body: 15,
-    bodyLarge: 17,
-    title: 20,
-    heading: 26,
-    display: 34,
+    label: 14,
+    body: 16,
+    bodyLarge: 18,
+    title: 21,
+    heading: 24,
+    display: 32,
     /** Next-manoeuvre distance on the driving screen. Readable in one glance. */
     navPrimary: 44,
   },
@@ -170,13 +197,16 @@ const typography = {
   },
 } as const;
 
-/** Soft and low contrast. Depth comes from elevation, not from heavy borders. */
+/**
+ * Civic separates surfaces with hairlines, not shadows. Only what floats over the busy map
+ * keeps a faint lift (lg), and dialogs keep a soft overlay shadow.
+ */
 const elevation = {
   none: 'none',
-  sm: '0 1px 2px hsl(222 30% 10% / 0.06), 0 1px 3px hsl(222 30% 10% / 0.04)',
-  md: '0 4px 12px hsl(222 30% 10% / 0.08), 0 2px 4px hsl(222 30% 10% / 0.04)',
-  lg: '0 12px 32px hsl(222 30% 10% / 0.12), 0 4px 8px hsl(222 30% 10% / 0.05)',
-  overlay: '0 20px 48px hsl(222 30% 10% / 0.18)',
+  sm: 'none',
+  md: 'none',
+  lg: '0 2px 8px hsl(219 38% 9% / 0.10)',
+  overlay: '0 12px 32px hsl(219 38% 9% / 0.16)',
 } as const;
 
 /** Everything moves on the same curve, so the product feels like one thing. */
